@@ -6,8 +6,8 @@ export default function LoginPage() {
         <>
             <Header
                 heading="Manually Adjust "
-                paragraph = "Already registered? "
-                linkName = "Sign In"
+                paragraph = ""
+                linkName = "Back to Login"
                 linkUrl = "/" 
             />
             <Timer/>

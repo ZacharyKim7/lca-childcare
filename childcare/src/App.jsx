@@ -4,9 +4,32 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
 import SignupPage from './pages/Signup';
 import LoginPage from './pages/Login';
 import Timer from './pages/Timer';
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+import { initializeApp } from "firebase/app";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCtg8_dw3xnaGRMo_YsMX52uuSy1weSbwI",
+  authDomain: "lca-childcare.firebaseapp.com",
+  projectId: "lca-childcare",
+  storageBucket: "lca-childcare.appspot.com",
+  messagingSenderId: "712920165922",
+  appId: "1:712920165922:web:476c9b5a11c006513d247b"
+};
+
+const app = initializeApp(firebaseConfig);
+// const auth = firebase.auth();
+// const firestore = firebase.firestore();
+
 
 function App() {
   return (
@@ -24,4 +47,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
