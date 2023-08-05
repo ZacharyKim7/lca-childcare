@@ -10,11 +10,10 @@ import LoginPage from './pages/Login';
 import Timer from './pages/Timer';
 
 import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 import { initializeApp } from "firebase/app";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { getFirestore } from "firebase/firestore";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const firebaseConfig = {

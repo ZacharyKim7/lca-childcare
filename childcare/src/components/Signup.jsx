@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const fields = signupFields;
 let fieldsState = {};
 
 fields.forEach(field => fieldsState[field.id] = '');
+
+
 
 export default function Signup() {
     const [signupState, setSignupState] = useState(fieldsState);
@@ -20,9 +23,18 @@ export default function Signup() {
     }
 
     //handle Signup API Integration here
-    // const createAccount = () => {
-
-    // }
+    const createAccount = () => {
+        const students = firebase.firestore().collection("students");
+        // var name = signupState[field.name];
+        // var id = signupState[field.id];
+        
+        // students.add({
+        //     name: name,
+        //     id: id,
+        //     checkIn: false,
+        //     onRecord: false,
+        // });
+    }
 
     return (
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -43,7 +55,7 @@ export default function Signup() {
                         />
                     )
                 }
-                <FormAction handleSubmit={handleSubmit} text="Register" />
+                <FormAction handleSubmit={handleSubmit} type='Button' text="Register" />
             </div>
         </form>
     )

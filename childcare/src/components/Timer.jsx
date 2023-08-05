@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { signupFields } from "../constants/formFields"
+import { timeFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
 
-const fields = signupFields;
+const fields = timeFields;
 let fieldsState = {};
 
 fields.forEach(field => fieldsState[field.id] = '');
@@ -43,7 +43,7 @@ export default function Signup() {
                         />
                     )
                 }
-                <FormAction handleSubmit={handleSubmit} text="Register" />
+                <FormAction handleSubmit={handleSubmit} type='Button' text="Register" />
             </div>
         </form>
     )

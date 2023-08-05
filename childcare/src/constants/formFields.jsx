@@ -1,34 +1,32 @@
 const loginFields=[
     {
-        labelText:"Student ID",
-        labelFor:"Student-ID",
-        id:"Student-ID",
-        name:"ID",
-        type:"ID",
-        autoComplete:"ID",
+        labelText:"Name",
+        labelFor:"Name",
+        id:"Name",
+        name:"Name",
+        type:"text",
+        autoComplete:"Name",
         isRequired:true,
-        placeholder:"Student ID"   
+        placeholder:"Student Name"   
     },
 ]
 
 const signupFields=[
     {
-        labelText:"Username",
-        labelFor:"username",
-        id:"username",
-        name:"username",
+        labelText:"Name",
+        labelFor:"Name",
+        id:"name",
+        name:"Name",
         type:"text",
-        autoComplete:"username",
         isRequired:true,
-        placeholder:"Name"   
+        placeholder:"Student Name"   
     },
     {
         labelText:"ID",
         labelFor:"ID",
-        id:"ID",
+        id:"id",
         name:"ID",
-        type:"ID",
-        autoComplete:"current-ID",
+        type:"number",
         isRequired:true,
         placeholder:"Student ID"   
     },
@@ -37,11 +35,41 @@ const signupFields=[
         labelFor:"confirm-ID",
         id:"confirm-ID",
         name:"confirm-ID",
-        type:"ID",
-        autoComplete:"confirm-ID",
+        type:"number",
         isRequired:true,
         placeholder:"Confirm ID"   
     }
 ]
 
-export {loginFields,signupFields}
+const timeFields=[
+    {
+        labelText:"Name",
+        labelFor:"Name",
+        id:"Name",
+        name:"Name",
+        type:"text",
+        isRequired:true,
+        placeholder:"Student Name"   
+    },
+    {
+        labelText:"Time in",
+        labelFor:"Time-in",
+        id:"Time-in",
+        name:"Time in",
+        type:"Time",
+        isRequired:true,
+        placeholder:"Time in"
+    },
+    {
+        labelText:"Time out",
+        labelFor:"Time-in",
+        id:"Time-out",
+        type:"Time",
+        isRequired:true,
+        placeholder:"Time out"
+    }
+]
+
+
+
+export {loginFields, signupFields, timeFields}
