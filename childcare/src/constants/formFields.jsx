@@ -15,7 +15,7 @@ const signupFields=[
     {
         labelText:"Name",
         labelFor:"Name",
-        id:"name",
+        id:"Name",
         name:"Name",
         type:"text",
         isRequired:true,
@@ -24,7 +24,7 @@ const signupFields=[
     {
         labelText:"ID",
         labelFor:"ID",
-        id:"id",
+        id:"ID",
         name:"ID",
         type:"number",
         isRequired:true,
@@ -33,7 +33,7 @@ const signupFields=[
     {
         labelText:"Confirm ID",
         labelFor:"confirm-ID",
-        id:"confirm-ID",
+        id:"Confirm-ID",
         name:"confirm-ID",
         type:"number",
         isRequired:true,
@@ -69,7 +69,6 @@ const timeFields=[
         placeholder:"Time out"
     }
 ]
-
 
 
 export {loginFields, signupFields, timeFields}

@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { signupFields } from "../constants/formFields"
+import Error from "../constants/Alerts";
 import FormAction from "./FormAction";
 import Input from "./Input";
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+
+import { initializeApp } from "firebase/app";
+import { DocumentSnapshot, getFirestore } from "firebase/firestore";
+import { collection, addDoc, query, where, doc, getDoc, setDoc, Timestamp } from "firebase/firestore"; 
+import { firebaseConfig } from '../firebase';
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 const fields = signupFields;
 let fieldsState = {};
 
 fields.forEach(field => fieldsState[field.id] = '');
-
-
 
 export default function Signup() {
     const [signupState, setSignupState] = useState(fieldsState);
@@ -22,18 +30,37 @@ export default function Signup() {
         createAccount()
     }
 
-    //handle Signup API Integration here
-    const createAccount = () => {
-        const students = firebase.firestore().collection("students");
-        // var name = signupState[field.name];
-        // var id = signupState[field.id];
-        
-        // students.add({
-        //     name: name,
-        //     id: id,
-        //     checkIn: false,
-        //     onRecord: false,
-        // });
+    // function checkInput() {
+
+    // }
+
+    function createAccount() {
+        const name = signupState.Name;
+        const id = signupState.ID;
+    
+        const studentRef = doc(db, "students", id);
+        getDoc(studentRef)
+            .then((docSnap) => {
+                if (docSnap.exists()) {
+                    <Error message = "Student account already exists" />;
+                    console.log("Document found");
+                } else {
+                    console.log("Document not found");
+                    return setDoc(doc(db, "students", id), {
+                        Name: name,
+                        signed_in: false,
+                        on_record: false,
+                        time_in: Timestamp.fromDate(new Date("July 22, 2003")),
+                        time_out: Timestamp.fromDate(new Date("July 23, 2003")),
+                    });
+                }
+            })
+            .then(() => {
+                console.log("Document written");
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
     }
 
     return (

@@ -9,26 +9,29 @@ import SignupPage from './pages/Signup';
 import LoginPage from './pages/Login';
 import Timer from './pages/Timer';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/firestore';
 
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+// import { initializeApp } from "firebase/app";
+// import { DocumentSnapshot, getFirestore } from "firebase/firestore";
+// import { collection, addDoc, query, where, doc, getDoc, setDoc, Timestamp } from "firebase/firestore"; 
+// import { firebaseConfig } from './firebase';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCtg8_dw3xnaGRMo_YsMX52uuSy1weSbwI",
-  authDomain: "lca-childcare.firebaseapp.com",
-  projectId: "lca-childcare",
-  storageBucket: "lca-childcare.appspot.com",
-  messagingSenderId: "712920165922",
-  appId: "1:712920165922:web:476c9b5a11c006513d247b"
-};
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
 
-const app = initializeApp(firebaseConfig);
-// const auth = firebase.auth();
-// const firestore = firebase.firestore();
+// // const students = firebase.firestore().collection("students");
 
+// try {
+//   const docRef = await addDoc(collection(db, "students"), {
+//     first: "Ada",
+//     last: "Lovelace",
+//     born: 1815
+//   });
+//   console.log("Document written with ID: ", docRef.id);
+// } catch (e) {
+//   console.error("Error adding document: ", e);
+// }
 
 function App() {
   return (
