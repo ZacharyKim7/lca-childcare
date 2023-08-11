@@ -4,6 +4,14 @@ import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
 
+import 'firebase/compat/firestore';
+
+import { DocumentSnapshot, getFirestore } from "firebase/firestore";
+import { collection, addDoc, query, where, doc, getDoc, setDoc, updateDoc, Timestamp, serverTimestamp } from "firebase/firestore";
+import { app } from "../firebase";
+
+const db = getFirestore(app);
+
 const fields = loginFields;
 let fieldsState = {};
 fields.forEach(field => fieldsState[field.id] = '');
@@ -22,7 +30,46 @@ export default function Login() {
 
     //Handle Login API Integration here
     const authenticateUser = () => {
+        const name = loginState.Name;
+        const studentRef = doc(db, "students", name);
         
+        
+        getDoc(studentRef)
+            .then((docSnap) => {
+                if (docSnap.exists()) {
+                    if (docSnap.data().signed_in === true) {
+                        const data = {
+                            signed_in: false,
+                            time_out: serverTimestamp(),
+                        };
+                        updateDoc(studentRef, data)
+                            .then(() => {
+                                console.log("Field value of an existing document was changed");
+                            })
+                            .catch((error) => {
+                                console.log("Encountered an error when updating field value", error);
+                            })
+                        alert("Success! Student signed out.");
+
+                    } else {
+                        const data = {
+                            signed_in: true,
+                            on_record: true,
+                            time_in: serverTimestamp(),
+                        };
+                        updateDoc(studentRef, data)
+                            .then(() => {
+                                console.log("Field value of an existing document was changed")
+                            })
+                            .catch((error) => {
+                                console.log("Encountered an error when updating field value", error);
+                            });
+                        alert("Success! Student signed in.")
+                    }
+                } else {
+                    alert("Student record not found.");
+                }
+            })
     }
 
 

@@ -1,18 +1,12 @@
 import { useState } from "react";
 import { signupFields } from "../constants/formFields"
-import Error from "../constants/Alerts";
 import FormAction from "./FormAction";
 import Input from "./Input";
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
-
-import { initializeApp } from "firebase/app";
 import { DocumentSnapshot, getFirestore } from "firebase/firestore";
-import { collection, addDoc, query, where, doc, getDoc, setDoc, Timestamp } from "firebase/firestore"; 
-import { firebaseConfig } from '../firebase';
+import { collection, addDoc, query, where, doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
+import { app } from "../firebase";
 
-const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const fields = signupFields;
 let fieldsState = {};
@@ -26,37 +20,47 @@ export default function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(signupState)
-        createAccount()
+        console.log(signupState);
+        checkInput()
     }
 
-    // function checkInput() {
-
-    // }
-
-    function createAccount() {
+    function checkInput() {
         const name = signupState.Name;
         const id = signupState.ID;
-    
-        const studentRef = doc(db, "students", id);
+        const confirm_id = signupState.Confirm_ID;
+
+        console.log(name, id, confirm_id);
+
+        if (name.length > 30 || id.length > 7 || confirm_id.length > 7) {
+            alert("Username or ID exceeds maximum length!");
+        } else if (id !== confirm_id) {
+            alert("ID and Confirm ID inputs do not match");
+        } else {
+            createAccount(name, id);
+        } 
+    }
+
+    function createAccount(name, id) {
+        const studentRef = doc(db, "students", name);
+
         getDoc(studentRef)
             .then((docSnap) => {
                 if (docSnap.exists()) {
-                    <Error message = "Student account already exists" />;
-                    console.log("Document found");
+                    alert("Student account already exists");
+                    console.log("Document already exists");
                 } else {
                     console.log("Document not found");
-                    return setDoc(doc(db, "students", id), {
-                        Name: name,
+                    return setDoc(doc(db, "students", name), {
+                        ID: id,
                         signed_in: false,
                         on_record: false,
-                        time_in: Timestamp.fromDate(new Date("July 22, 2003")),
-                        time_out: Timestamp.fromDate(new Date("July 23, 2003")),
+                        time_in: Timestamp.fromDate(new Date()),
+                        time_out: Timestamp.fromDate(new Date()),
                     });
                 }
             })
             .then(() => {
-                console.log("Document written");
+                console.log("Task Complete");
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);

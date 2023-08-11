@@ -33,7 +33,7 @@ const signupFields=[
     {
         labelText:"Confirm ID",
         labelFor:"confirm-ID",
-        id:"Confirm-ID",
+        id:"Confirm_ID",
         name:"confirm-ID",
         type:"number",
         isRequired:true,
@@ -54,7 +54,7 @@ const timeFields=[
     {
         labelText:"Time in",
         labelFor:"Time-in",
-        id:"Time-in",
+        id:"Time_in",
         name:"Time in",
         type:"Time",
         isRequired:true,
@@ -63,7 +63,7 @@ const timeFields=[
     {
         labelText:"Time out",
         labelFor:"Time-in",
-        id:"Time-out",
+        id:"Time_out",
         type:"Time",
         isRequired:true,
         placeholder:"Time out"
