@@ -8,20 +8,19 @@ import {
 import SignupPage from './pages/Signup';
 import LoginPage from './pages/Login';
 import Timer from './pages/Timer';
+import Dashboard from './pages/List';
 
 function App() {
+
   return (
-    <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div className="max-w-md w-full space-y-8">
-     <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<LoginPage/>} />
-            {<Route path="/signup" element={<SignupPage/>} />}
-            {<Route path="/timer" element={<Timer/>} />}
-        </Routes>
-      </BrowserRouter>
-    </div>
-  </div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            {<Route path="/signup" element={<SignupPage />} />}
+            {<Route path="/timer" element={<Timer />} />}
+            {<Route path="/List" element={<Dashboard />} />}
+          </Routes>
+        </BrowserRouter>
   );
 }
 
