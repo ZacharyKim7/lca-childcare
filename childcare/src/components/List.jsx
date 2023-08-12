@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
+import Students from "./Students";
 
 const user = {
   name: 'Tom Cook',
@@ -186,7 +187,7 @@ export default function List() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
+          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{<Students/>}</div>
         </main>
       </div>
     </>
