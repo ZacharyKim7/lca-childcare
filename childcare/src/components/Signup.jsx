@@ -50,6 +50,7 @@ export default function Signup() {
                     console.log("Document already exists");
                 } else {
                     console.log("Document not found");
+                    alert("Student Record Created");
                     return setDoc(doc(db, "students", name), {
                         ID: id,
                         signed_in: false,

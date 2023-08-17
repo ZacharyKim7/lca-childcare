@@ -70,5 +70,4 @@ const timeFields=[
     }
 ]
 
-
 export {loginFields, signupFields, timeFields}

@@ -11,9 +11,11 @@ export default function FormExtra() {
                 <a href="/Timer" className="font-medium text-purple-600 hover:text-purple-500">
                     Edit timer
                 </a>
-                {/* <Link to={"/timer"} className="font-medium text-purple-600 hover:text-purple-500">
-                    {Edit Timer}
-                </Link> */}
+            </div>
+            <div className="text-sm">
+                <a href="List" className="font-medium text-purple-600 hover:text-purple-500">
+                    Mass Sign-in
+                </a>
             </div>
         </div>
     )
