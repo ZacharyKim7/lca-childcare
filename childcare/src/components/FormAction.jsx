@@ -2,7 +2,8 @@ export default function FormAction({
     handleSubmit,
     type,
     action = 'submit',
-    text
+    text,
+    className,
 }) {
     return (
         <>

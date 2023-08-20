@@ -11,7 +11,6 @@ import Timer from './pages/Timer';
 import Dashboard from './pages/List';
 
 function App() {
-
   return (
         <BrowserRouter>
           <Routes>

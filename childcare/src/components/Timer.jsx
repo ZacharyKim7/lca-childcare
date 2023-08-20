@@ -3,13 +3,13 @@ import { timeFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
 
-import 'firebase/compat/firestore';
+import { adjustTimer } from "./Api";
 
-import { DocumentSnapshot, getFirestore } from "firebase/firestore";
-import { collection, addDoc, query, where, doc, getDoc, setDoc, updateDoc, Timestamp, serverTimestamp } from "firebase/firestore";
-import { app } from "../firebase";
+// import 'firebase/compat/firestore';
 
-const db = getFirestore(app);
+// import { DocumentSnapshot, getFirestore } from "firebase/firestore";
+// import { collection, addDoc, query, where, doc, getDoc, setDoc, updateDoc, Timestamp, serverTimestamp } from "firebase/firestore";
+// import { app } from "../firebase";
 
 const fields = timeFields;
 let fieldsState = {};
@@ -23,49 +23,7 @@ export default function Timer() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(timerState);
-        adjustTimer();
-    }
-
-    const adjustTimer = () => {
-        const name = timerState.Name;
-        const timeIn = timerState.Time_in;
-        const timeOut = timerState.Time_out;
-        const [hoursIn, minutesIn] = timeIn.split(':');
-        const [hoursOut, minutesOut] = timeOut.split(':');
-
-        const studentRef = doc(db, "students", name);
-
-        getDoc(studentRef)
-            .then((docSnap) => {
-                if (docSnap.exists()) {
-                    const new_in = new Date();
-                    new_in.setHours(hoursIn);
-                    new_in.setMinutes(minutesIn);
-                    new_in.setMiliseconds(0);
-
-                    const new_out = new Date();
-                    new_out.setHours(hoursOut);
-                    new_out.setMinutes(minutesOut);
-                    new_in.setMiliseconds(0);
-
-                    const data = {
-                        time_in: Timestamp.fromDate(new_in),
-                        time_out: Timestamp.fromDate(new_out),
-                    };
-                    updateDoc(studentRef, data)
-                        .then(() => {
-                            console.log("Time updated successfully.");
-                            alert("Time updated sucessfully:", {new_in}, {new_out});
-                        })
-                        .catch((error) => {
-                            console.log("Encountered an error when updating time.", error);
-                            alert("Error updating student time");
-                        })    
-                } else {
-                    alert("Student record not found.");
-                }
-            });
+        adjustTimer(timerState);
     }
 
     return (

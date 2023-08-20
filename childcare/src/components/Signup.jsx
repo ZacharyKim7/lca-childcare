@@ -2,12 +2,13 @@ import { useState } from "react";
 import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
+import { createAccount } from "./Api";
 
-import { DocumentSnapshot, getFirestore } from "firebase/firestore";
-import { collection, addDoc, query, where, doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
-import { app } from "../firebase";
+// import { DocumentSnapshot, getFirestore } from "firebase/firestore";
+// import { collection, addDoc, query, where, doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
+// import { app } from "../firebase";
 
-const db = getFirestore(app);
+// const db = getFirestore(app);
 const fields = signupFields;
 let fieldsState = {};
 
@@ -40,33 +41,7 @@ export default function Signup() {
         } 
     }
 
-    function createAccount(name, id) {
-        const studentRef = doc(db, "students", name);
 
-        getDoc(studentRef)
-            .then((docSnap) => {
-                if (docSnap.exists()) {
-                    alert("Student account already exists");
-                    console.log("Document already exists");
-                } else {
-                    console.log("Document not found");
-                    alert("Student Record Created");
-                    return setDoc(doc(db, "students", name), {
-                        ID: id,
-                        signed_in: false,
-                        on_record: false,
-                        time_in: Timestamp.fromDate(new Date()),
-                        time_out: Timestamp.fromDate(new Date()),
-                    });
-                }
-            })
-            .then(() => {
-                console.log("Task Complete");
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
-    }
 
     return (
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
