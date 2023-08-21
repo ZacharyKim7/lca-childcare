@@ -1,5 +1,5 @@
 import { getFirestore } from "firebase/firestore";
-import { collection, doc, getDocs, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { collection, doc, getDocs, where, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { app } from "../firebase";
 
 const db = getFirestore(app);
@@ -189,5 +189,52 @@ function createAccount(name, id) {
         });
 }
 
+async function processBatch() {
+    const peopleJSON = [];
 
-export { fetchStudentsAll, signIn, signOut, adjustTimer, authenticateUser, createAccount }
+    const querySnapshot = await getDocs(collection(db, "students"));
+    querySnapshot.forEach((document) => {
+        console.log(document.id)
+        if (document.data().on_record === true) {
+            const time = (document.data().time_out.toDate() - document.data().time_in.toDate()) / 3600000.0;
+            const day = document.data().time_in.toDate().toString();
+            const hourMatch = day.match(/(\d{2}):/);
+            let isPM = null;
+            if (hourMatch) {
+                const hour = parseInt(hourMatch[1], 10);
+                isPM = (hour >= 12);
+            }
+            var persons_data = {
+                "Log Id": document.data().ID,
+                "Student": document.id,
+                "Login": document.data().time_in.toDate().toString(),
+                "Logout": document.data().time_out.toDate().toString(),
+                "Total Time (hours)": time.toFixed(2),
+                "Charge note": `${time.toFixed(2)} X ${isPM ? "$6.50" : "$7.50"} on ${day.slice(0,10)}`,
+                "Billing Amount": (time * (isPM ? 6.50 : 7.50)).toFixed(2)
+            }
+            peopleJSON.push(persons_data);
+
+            const name = document.id;
+
+            const studentRef = doc(db, "students", name);
+
+            const data = {
+                on_record: false,
+            }
+
+            updateDoc(studentRef, data)
+            .then(() => {
+                console.log("Removed student from record");
+            })
+            .catch((error) => {
+                console.log("Encountered an error when removing student from record", error);
+            })
+        }
+    });
+
+    return peopleJSON
+}
+
+
+export { fetchStudentsAll, signIn, signOut, adjustTimer, authenticateUser, createAccount, processBatch }

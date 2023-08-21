@@ -66,9 +66,6 @@ export default function Login() {
                 <FormAction handleSubmit={handleSubmit} type='Button' text="Sign In/Out" />
 
             </form>
-            <div className="fixed bottom-4 right-4">
-                <FormAction handleSubmit={handleBatch} type='Button-Batch' text="Process Batch"/>
-            </div>
         </div>
     )
 }
