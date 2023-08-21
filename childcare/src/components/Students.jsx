@@ -14,9 +14,6 @@ let fieldsState = {};
 
 fields.forEach(field => fieldsState[field.id] = '');
 
-const temp_people = await fetchStudentsAll();
-
-
 export default function Students() {
     const [search, setSearch] = useState("");
     const [checked, setChecked] = useState([]);
@@ -27,8 +24,12 @@ export default function Students() {
 
     // console.log(people);
     useEffect(() => {
-        // This code will run only once when the component mounts
-        setPeople(temp_people);
+        async function fetchData() {
+            const temp_people = await fetchStudentsAll();
+            setPeople(temp_people);
+        }
+
+        fetchData();
     }, []);
 
     useEffect(() => {

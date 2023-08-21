@@ -32,7 +32,7 @@ function signIn(Time_in, checkedItems, checked) {
     }
 
     if (checkedItems.length === 0) {
-        alert("No Students Checked");
+        alert("No students Checked");
     } else {
         checked.forEach((student) => {
             const studentRef = doc(db, "students", student);
@@ -45,7 +45,7 @@ function signIn(Time_in, checkedItems, checked) {
                     alert("Error during mass sign-in.");
                 })
         })
-        alert(`Signed in ${checked.length} students.`);
+        alert(`Signed in students.`);
     }
 }
 
@@ -63,7 +63,7 @@ function signOut(Time_in, checkedItems, checked) {
     }
 
     if (checkedItems.length === 0) {
-        alert("No Students");
+        alert("No students checked.");
     } else {
         checked.forEach((student) => {
             const studentRef = doc(db, "students", student);
@@ -75,7 +75,7 @@ function signOut(Time_in, checkedItems, checked) {
                     console.log("Encountered an error duing mass sign out.", error);
                 })
         })
-        alert(`Signed out ${checked.length} students.`);
+        alert(`Signed out students.`);
     }
 }
 
