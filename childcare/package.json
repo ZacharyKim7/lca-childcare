@@ -16,7 +16,8 @@
     "eslint": "^8.47.0",
     "eslint-plugin-react": "^7.33.2",
     "file-saver": "^2.0.5",
-    "firebase": "^10.2.0",
+    "firebase": "^10.3.0",
+    "react-firebase-hooks": "^5.1.1",
     "react-router-dom": "^6.15.0",
     "sheetjs-style-v2": "^0.15.6",
     "vite": "^4.4.9"

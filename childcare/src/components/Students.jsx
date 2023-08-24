@@ -21,6 +21,8 @@ export default function Students() {
     const [people, setPeople] = useState([]);
     const [currentTab, setcurrentTab] = useState(1);
 
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+
 
     // console.log(people);
     useEffect(() => {
@@ -36,21 +38,23 @@ export default function Students() {
         console.log(checked);
     }, [checked]);
 
-    function updateList(checkedItems) {
+    function updateList(checkedItems, Time_in) {
         setPeople(people.map((person) => {
             if (checkedItems.includes(person.name)) {
                 person.signed_in = true,
                     person.on_record = true,
+                    person.Time_in = Time_in,
                     console.log(person)
             }
             return person;
         }))
     }
 
-    function updateListOut(checkedItems) {
+    function updateListOut(checkedItems, Time_in) {
         setPeople(people.map((person) => {
             if (checkedItems.includes(person.name)) {
                 person.signed_in = false,
+                    person.Time_out = Time_in,
                     console.log(person)
             }
             return person;
@@ -62,14 +66,21 @@ export default function Students() {
     const handleSubmit = (e) => {
         e.preventDefault();
         signIn(timerState.Time_in, checkedItems, checked);
-        updateList(checkedItems);
-
+        updateList(checkedItems, timerState.Time_in);
+        setChecked([]);
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
     };
 
     const handleSubmitOut = (e) => {
         e.preventDefault();
         signOut(timerState.Time_in, checkedItems, checked);
-        updateListOut(checkedItems);
+        updateListOut(checkedItems, timerState.Time_in);
+        setChecked([]);
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
     }
 
     const handleCheck = (event) => {
@@ -117,6 +128,11 @@ export default function Students() {
                                 <p>Signed-in</p>
                             </div>
                         </div>
+                        <div className="rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8" onClick={() => setcurrentTab(4)}>
+                            <div className={`py-2 px-8 rounded-full ${currentTab == 4 ? "bg-indigo-100 text-indigo-700" : "text-gray-600 hover:text-indigo-700 hover:bg-indigo-100"}`}>
+                                <p>On-Record</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="mt-7 max-h-[55vh] overflow-hidden overflow-y-scroll">
@@ -127,6 +143,9 @@ export default function Students() {
                                     return false;
                                 }
                                 if (currentTab == 3 && person.signed_in == false) {
+                                    return false;
+                                }
+                                if (currentTab == 4 && person.on_record == false) {
                                     return false;
                                 }
                                 return search.toLowerCase() === '' ? true : person.name.toLowerCase().includes(search);
@@ -151,7 +170,7 @@ export default function Students() {
                                     </td>
                                     <td className="pl-24">
                                         <div className="flex items-center">
-                                            <p className="text-sm leading-none text-gray-600 ml-2>"></p>
+                                            {/* <p className="text-sm leading-none text-gray-600 ml-2>">{person.on_record && !person.signed_in ? `In at: ${person.Time_in} | Out at: ${person.Time_out}` : ""} {person.signed_in ? `In at: ${person.Time_in}` : ""}</p> */}
                                         </div>
                                     </td>
                                     <td className="pl-5 pr-5">

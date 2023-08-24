@@ -1,8 +1,30 @@
 import { getFirestore } from "firebase/firestore";
-import { collection, doc, getDocs, where, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc, setDoc, Timestamp, updateDoc, serverTimestamp } from "firebase/firestore";
 import { app } from "../firebase";
+import 'firebase/auth';
+
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
 
 const db = getFirestore(app);
+
+function Admin(email, password) {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            return true;
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            return false;
+        });
+    return true
+}
 
 async function fetchStudentsAll() {
     const people = [];
@@ -210,8 +232,8 @@ async function processBatch() {
                 "Login": document.data().time_in.toDate().toString(),
                 "Logout": document.data().time_out.toDate().toString(),
                 "Total Time (hours)": time.toFixed(2),
-                "Charge note": `${time.toFixed(2)} X ${isPM ? "$6.50" : "$7.50"} on ${day.slice(0,10)}`,
-                "Billing Amount": (time * (isPM ? 6.50 : 7.50)).toFixed(2)
+                "Charge note": `${time.toFixed(2)} X ${isPM ? "$7.50 (PM)" : "$8.50 (AM)"} on ${day.slice(0, 10)}`,
+                "Billing Amount": (time.toFixed(2) * (isPM ? 7.50 : 8.50)).toFixed(2)
             }
             peopleJSON.push(persons_data);
 
@@ -224,12 +246,12 @@ async function processBatch() {
             }
 
             updateDoc(studentRef, data)
-            .then(() => {
-                console.log("Removed student from record");
-            })
-            .catch((error) => {
-                console.log("Encountered an error when removing student from record", error);
-            })
+                .then(() => {
+                    console.log("Removed student from record");
+                })
+                .catch((error) => {
+                    console.log("Encountered an error when removing student from record", error);
+                })
         }
     });
 
@@ -237,4 +259,4 @@ async function processBatch() {
 }
 
 
-export { fetchStudentsAll, signIn, signOut, adjustTimer, authenticateUser, createAccount, processBatch }
+export { fetchStudentsAll, signIn, signOut, adjustTimer, authenticateUser, createAccount, processBatch, Admin }

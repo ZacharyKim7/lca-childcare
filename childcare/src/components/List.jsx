@@ -1,18 +1,8 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure, } from '@headlessui/react'
 import Students from "./Students";
-import Title from '../assets/Title.png';
-import { processBatch } from './Api';
 import ExportExcel from './ExcelExport';
+import { Link } from 'react-router-dom'
 
-
-navigation = [
-  { name: 'Student Fucntions', href: '#', current: true },
-  { name: "Back to Home", href:"/", current: false},
-]
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function List() {
   return (
@@ -29,21 +19,9 @@ export default function List() {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? 'bg-gray-900 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                              'rounded-md px-3 py-2 text-sm font-medium'
-                            )}
-                            aria-current={item.current ? 'page' : undefined}
-                          >
-                            {item.name}
-                          </a>
-                        ))}
+                        <Link to="/" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
+                          Back to Home
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -67,25 +45,6 @@ export default function List() {
                   </div>
                 </div>
               </div>
-
-              <Disclosure.Panel className="md:hidden">
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                  {navigation.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      href={item.href}
-                      className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'block rounded-md px-3 py-2 text-base font-medium'
-                      )}
-                      aria-current={item.current ? 'page' : undefined}
-                    >
-                      {item.name}
-                    </Disclosure.Button>
-                  ))}
-                </div>
-              </Disclosure.Panel>
             </>
           )}
         </Disclosure>

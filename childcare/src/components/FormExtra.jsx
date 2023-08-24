@@ -8,14 +8,14 @@ export default function FormExtra() {
                     Missed Sign In/Out?
                 </span>
                 {" "}
-                <a href="/Timer" className="font-medium text-purple-600 hover:text-purple-500">
+                <Link to="/timer" className="font-medium text-purple-600 hover:text-purple-500">
                     Edit timer
-                </a>
+                </Link>
             </div>
             <div className="text-sm">
-                <a href="List" className="font-medium text-purple-600 hover:text-purple-500">
+                <Link to="/List" className="font-medium text-purple-600 hover:text-purple-500">
                     Mass Sign-in
-                </a>
+                </Link>
             </div>
         </div>
     )

@@ -82,4 +82,27 @@ const massField = [
     }
 ]
 
-export { loginFields, signupFields, timeFields, massField}
+const AdminLogin = [
+    {
+        labelText: "Email",
+        labelFor: "email",
+        id: "Email",
+        name: "Email",
+        type: "text",
+        autoComplete: "Email",
+        isRequired: true,
+        placeholder: "Email"
+    },
+    {
+        labelText: "Password",
+        labelFor: "Password",
+        id: "Password",
+        name: "Password",
+        type: "text",
+        autoComplete: "Password",
+        isRequired: true,
+        placeholder: "Password"
+    },
+]
+
+export { loginFields, signupFields, timeFields, massField, AdminLogin}
