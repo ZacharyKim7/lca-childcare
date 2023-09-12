@@ -46,12 +46,14 @@ function signIn(Time_in, checkedItems, checked) {
     const new_in = new Date();
     new_in.setHours(hoursIn);
     new_in.setMinutes(minutesIn);
+    const Time = Timestamp.fromDate(new_in)
 
     const data = {
         signed_in: true,
         on_record: true,
-        time_in: Timestamp.fromDate(new_in),
+        time_in: Time,
     }
+    console.log(data.time_in)
 
     if (checkedItems.length === 0) {
         alert("No students Checked");
@@ -69,6 +71,7 @@ function signIn(Time_in, checkedItems, checked) {
         })
         alert(`Signed in students.`);
     }
+    return Time
 }
 
 function signOut(Time_in, checkedItems, checked) {
@@ -78,10 +81,11 @@ function signOut(Time_in, checkedItems, checked) {
     const new_in = new Date();
     new_in.setHours(hoursIn);
     new_in.setMinutes(minutesIn);
+    const Time = Timestamp.fromDate(new_in)
 
     const data = {
         signed_in: false,
-        time_out: Timestamp.fromDate(new_in),
+        time_out: Time,
     }
 
     if (checkedItems.length === 0) {
@@ -99,6 +103,7 @@ function signOut(Time_in, checkedItems, checked) {
         })
         alert(`Signed out students.`);
     }
+    return Time
 }
 
 const adjustTimer = (timerState) => {
@@ -216,7 +221,6 @@ async function processBatch() {
 
     const querySnapshot = await getDocs(collection(db, "students"));
     querySnapshot.forEach((document) => {
-        console.log(document.id)
         if (document.data().on_record === true) {
             const time = (document.data().time_out.toDate() - document.data().time_in.toDate()) / 3600000.0;
             const day = document.data().time_in.toDate().toString();
