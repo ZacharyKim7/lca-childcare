@@ -1,5 +1,5 @@
 # Overview
-A childcare check-in/check-out website built using JavaScript and ReactJS for the frontend and Google Firebase as the backend. 
+A childcare check-in/check-out website developed for Lake City Academy with the purpose of logging daily before/after school childcare hours. Frontend webpage built with JavaScript and ReactJS, with Google Firebase as the backend. Program supports Google SSO authentication for security, creating new students, mass sing ins/outs, searching, and Excel sheet downloads with the appropriate formatting to be uploaded directly into TADS billing system.
 
 # Demo
 
